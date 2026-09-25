@@ -10,7 +10,8 @@
   <body>
     <h1>Wiiiiiiide Calc</h1>
     <div class="calculator">
-      <input type="text" id="result" readonly />
+      <!-- Removed 'readonly' to ensure the screen accepts text input -->
+      <input type="text" id="result" />
       <div class="buttons">
         <button class="clear">C</button>
         <button class="operator">/</button>
@@ -37,9 +38,45 @@
         <li><a href="Nothing to See Here">Nothing to See Here</a></li>
         <li><a href="Dont click the bottom link">Dont Click the bottom link</a></li>
         <li><a href="dont do it im telling you">Dont Do It Im Telling You</a></li>
-        <li><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Dont Click Me!</a></li>
+        <li><a href="https://youtube.com">Dont Click Me!</a></li>
       </ul>
     </div>
-    <script src="index.js"></script>
+
+    <!-- Embedded JavaScript directly so there are no filename errors -->
+    <script>
+      alert("Welcome to the Super Wide Calculator!    Dont Click the link on the bottom");
+      
+      const allButtonEls = document.querySelectorAll(".buttons button");
+      const inputFieldEl = document.getElementById("result");
+
+      for (let i = 0; i < allButtonEls.length; i++) {
+        allButtonEls[i].addEventListener("click", () => {
+          const buttonValue = allButtonEls[i].textContent;
+          if (buttonValue === "C") {
+            clearResult();
+          } else if (buttonValue === "=") {
+            calculateResult();
+          } else {
+            appendValue(buttonValue);
+          }
+        });
+      }
+
+      function clearResult() {
+        inputFieldEl.value = "";
+      }
+
+      function calculateResult() {
+        try {
+          inputFieldEl.value = eval(inputFieldEl.value);
+        } catch (err) {
+          inputFieldEl.value = "Fix Yo Equation Twin"; 
+        }
+      }
+
+      function appendValue(buttonValue) {
+        inputFieldEl.value += buttonValue;
+      }
+    </script>
   </body>
 </html>
